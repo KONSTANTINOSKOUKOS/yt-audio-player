@@ -23,6 +23,10 @@ const formatres = (res) => {
     }
 }
 
+app.get('/', (req, res) => {
+    res.send('yt-audio-player');
+});
+
 app.get('/search/:id', async (req, res) => {
     console.log('started search');
     const str = req.params.id.replace('%20', ' ');
