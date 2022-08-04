@@ -1,5 +1,5 @@
 // const { createWriteStream, createReadStream, statSync } = require('fs');
-const { Stream, Writable, Readable, Duplex } = require('stream');
+// const { Stream, Writable, Readable, Duplex } = require('stream');
 const express = require('express');
 const cors = require('cors');
 const yts = require('yt-search');
@@ -46,44 +46,8 @@ app.get('/playlist/:id', async (req, res) => {
 });
 
 app.get('/convert/:id', async (req, res) => {
-    // ytdl(`https://youtube.com/watch?v=${req.params.id}`, { quality: 'highestaudio' }).pipe(createWriteStream(`public/vid.mp4`)).on('finish', () => {
-    //     console.log('found video');
-    //     console.log(`finished ${vid.title}`);
-    //     res.end();
-    // });
-
-    // const stream = new Writable();
-    // ytdl(`https://youtube.com/watch?v=${req.params.id}`, { quality: 'highestaudio' }).pipe(stream);
-    // let size = 0;
-
-    // stream
-    //     // .on('data', chunk => {
-    //     //     size += chunk.size;
-    //     // })
-    //     .on('finish', () => {
-    //         // res.writeHead(200, {
-    //         //     'Accept-Ranges': 'bytes',
-    //         //     'Content-Length': size,
-    //         //     'Content-Type': 'video/mp4',
-    //         // });
-
-    //         // stream.pipe(res);
-    //         // res.end();
-    //         res.send(stream);
-    //     });
-
-
     ytdl(`https://youtube.com/watch?v=${req.params.id}`, { quality: 'highestaudio' }).pipe(res);
 });
-
-// app.get('/data', (req, res) => {
-//     const stream = new Stream();
-//     createReadStream('public/vidd.mp4').pipe(stream).on('data', chunk => {
-//         res.write(chunk)
-//     }).on('end', () => {
-//         res.end();
-//     });
-// });
 
 app.listen(5000, () => {
     console.log('app online');
