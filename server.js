@@ -5,7 +5,6 @@ const cors = require('cors');
 const yts = require('yt-search');
 const ytdl = require('ytdl-core');
 const path = require('path');
-const http = require('http');
 const app = express();
 
 app.use(cors({ origin: '*' }));
@@ -49,10 +48,10 @@ app.get('/playlist/:id', async (req, res) => {
     res.send(infos);
 });
 
-app.get('/convert/:id', async (req, res) => {
+app.get('/convert/:id', (req, res) => {
     ytdl(`https://youtube.com/watch?v=${req.params.id}`, { quality: 'highestaudio' }).pipe(res);
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(5000, () => {
     console.log('app online');
 });
