@@ -1,5 +1,5 @@
-// const { createWriteStream, createReadStream, statSync } = require('fs');
-// const { Stream, Writable, Readable, Duplex } = require('stream');
+const { createWriteStream, createReadStream, statSync, readdir, unlink } = require('fs');
+const { Stream, Writable, Readable, Duplex } = require('stream');
 const express = require('express');
 const cors = require('cors');
 const yts = require('yt-search');
@@ -50,6 +50,28 @@ app.get('/playlist/:id', async (req, res) => {
 
 app.get('/convert/:id', (req, res) => {
     ytdl(`https://youtube.com/watch?v=${req.params.id}`, { quality: 'highestaudio' }).pipe(res);
+});
+
+app.get('/download/:id', (req, res) => {
+
+    readdir(path.join(__dirname, 'public'), (err, files) => {
+        if (err) console.log(err);
+
+        if (files.length != 0) {
+            files.forEach(file => {
+                unlink(path.join(__dirname, 'public', file), (err) => {
+                    if (err) console.log(err);
+                });
+            });
+        }
+    });
+
+    const stream = ytdl(`https://youtube.com/watch?v=${req.params.id}`, { quality: 'highestaudio' });
+    stream.pipe(createWriteStream(`public/${req.params.id}.mp4`))
+        .on('finish', () => {
+            console.log('downloaded ' + req.params.id);
+            res.download(`public/${req.params.id}.mp4`);
+        });
 });
 
 app.listen(process.env.PORT, () => {
