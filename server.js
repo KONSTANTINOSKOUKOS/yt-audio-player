@@ -54,18 +54,6 @@ app.get('/convert/:id', (req, res) => {
 
 app.get('/download/:id', (req, res) => {
 
-    readdir(path.join(__dirname, 'public'), (err, files) => {
-        if (err) console.log(err);
-
-        if (files.length != 0) {
-            files.forEach(file => {
-                unlink(path.join(__dirname, 'public', file), (err) => {
-                    if (err) console.log(err);
-                });
-            });
-        }
-    });
-
     const stream = ytdl(`https://youtube.com/watch?v=${req.params.id}`, { quality: 'highestaudio' });
     stream.pipe(createWriteStream(`public/${req.params.id}.mp4`))
         .on('finish', () => {
