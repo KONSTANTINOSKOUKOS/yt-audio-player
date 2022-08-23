@@ -55,10 +55,10 @@ app.get('/convert/:id', (req, res) => {
 app.get('/download/:id', (req, res) => {
 
     const stream = ytdl(`https://youtube.com/watch?v=${req.params.id}`, { quality: 'highestaudio' });
-    stream.pipe(createWriteStream(`public/${req.params.id}.mp4`))
+    stream.pipe(createWriteStream(`${req.params.id}.mp4`))
         .on('finish', () => {
             console.log('downloaded ' + req.params.id);
-            res.download(`public/${req.params.id}.mp4`);
+            res.download(`${req.params.id}.mp4`);
         });
 });
 
