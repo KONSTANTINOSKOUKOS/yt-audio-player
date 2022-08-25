@@ -18,7 +18,8 @@ const formatres = (res) => {
             seconds: res.duration.seconds,
             timestamp: res.duration.timestamp
         },
-        id: res.videoId
+        id: res.videoId,
+        downloaded: false
     }
 }
 
