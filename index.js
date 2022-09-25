@@ -54,16 +54,17 @@ app.get('/convert/:id', (req, res) => {
 });
 
 app.get('/download/:id', (req, res) => {
-    const pathh = path.join(__dirname, '/tmp');
+    // const pathh = path.join(__dirname, '/tmp');
 
-    access(pathh,(e)=>{
-        if(e){
-            console.log(e);
-            mkdir(pathh,(e)=> {
-                if(e) console.log(e);
-            });
-        }
-    });
+    // access(pathh,(e)=>{
+    //     if(e){
+    //         console.log(e);
+    //         mkdir(pathh,(e)=> {
+    //             if(e) console.log(e);
+    //         });
+    //     }
+    // });
+
     // readdir(vercel, (e,files)=>{
     //     if(e) console.log(e);
 
