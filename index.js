@@ -54,11 +54,24 @@ app.get('/convert/:id', (req, res) => {
 });
 
 app.get('/download/:id', (req, res) => {
+    const vercel = path.join(__dirname,'.vercel/output/');
+
+    readdir(vercel, (e,files)=>{
+        if(e) console.log(e);
+
+        for(const file of files){
+            unlink(path.join(vercel,file), e => {
+                if(e) console.log(e);
+            });
+        }
+    });
+
+    const filepath = path.join(vercel,`${req.params.id}.mp3`);
     const stream = ytdl(`https://youtube.com/watch?v=${req.params.id}`, { quality: 'highestaudio' });
-    stream.pipe(createWriteStream(`${req.params.id}.mp3`))
+    stream.pipe(createWriteStream(filepath))
         .on('finish', () => {
             console.log('downloaded ' + req.params.id);
-            res.download(`${req.params.id}.mp3`);
+            res.download(filepath);
         });
 });
 
