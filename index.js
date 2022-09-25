@@ -54,32 +54,11 @@ app.get('/convert/:id', (req, res) => {
 });
 
 app.get('/download/:id', (req, res) => {
-    // const pathh = path.join(__dirname, '/tmp');
-
-    // access(pathh,(e)=>{
-    //     if(e){
-    //         console.log(e);
-    //         mkdir(pathh,(e)=> {
-    //             if(e) console.log(e);
-    //         });
-    //     }
-    // });
-
-    // readdir(vercel, (e,files)=>{
-    //     if(e) console.log(e);
-
-    //     for(const file of files){
-    //         unlink(path.join(vercel,file), e => {
-    //             if(e) console.log(e);
-    //         });
-    //     }
-    // });
-
     const stream = ytdl(`https://youtube.com/watch?v=${req.params.id}`, { quality: 'highestaudio' });
-    stream.pipe(createWriteStream(`${req.params.id}.mp3`))
+    stream.pipe(createWriteStream(`/tmp/${req.params.id}.mp3`))
         .on('finish', () => {
             console.log('downloaded ' + req.params.id);
-            res.download(path.join(__dirname,`/${req.params.id}.mp3`));
+            res.download(path.join(__dirname,`/tmp/${req.params.id}.mp3`));
         });
 });
 
