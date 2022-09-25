@@ -58,7 +58,7 @@ app.get('/download/:id', (req, res) => {
     stream.pipe(createWriteStream(`/tmp/${req.params.id}.mp3`))
         .on('finish', () => {
             console.log('downloaded ' + req.params.id);
-            res.download(path.join(__dirname,`/tmp/${req.params.id}.mp3`));
+            res.download(`/tmp/${req.params.id}.mp3`);
         });
 });
 
