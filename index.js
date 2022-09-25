@@ -54,7 +54,7 @@ app.get('/convert/:id', (req, res) => {
 });
 
 app.get('/download/:id', (req, res) => {
-    const vercel = path.join(__dirname,'.vercel/output/');
+    const vercel = path.join(__dirname,'/tmp');
 
     readdir(vercel, (e,files)=>{
         if(e) console.log(e);
