@@ -65,3 +65,5 @@ app.get('/download/:id', (req, res) => {
 app.listen(process.env.PORT, () => {
     console.log('app online');
 });
+
+module.exports = app;
